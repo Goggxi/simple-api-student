@@ -1,32 +1,23 @@
 package com.goggxi.simpleapistudent.service;
 
 import com.goggxi.simpleapistudent.model.Student;
-import org.springframework.stereotype.Component;
+import com.goggxi.simpleapistudent.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
 @Service
 public class StudentService {
 
+    private final StudentRepository studentRepository;
+
+    @Autowired
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
     public List<Student> getStudent() {
-        return List.of(
-                new Student(
-                        1L,
-                        "Moh Rifkan",
-                        "goggxi@gmail.com",
-                        LocalDate.of(1998, Month.AUGUST, 5),
-                        22
-                ),
-                new Student(
-                        2L,
-                        "Ipang",
-                        "ipang@gmail.com",
-                        LocalDate.of(1998, Month.AUGUST, 5),
-                        22
-                )
-        );
+        return studentRepository.findAll();
     }
 }
